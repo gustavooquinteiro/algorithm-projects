@@ -1,5 +1,5 @@
 #include "../lib/quicksort.h"
-// A utility function to swap two elements
+
 void swap(int* a, int* b){
     int t = *a;
     *a = *b;
@@ -33,30 +33,19 @@ void medianOfThree(int * arr, int low, int high){
 
 int randomized_partition (int arr[], int low, int high){
     int index = rand() % high;
-    while (index > high){
-        index = index % high;
-    }
     swap(&arr[high], &arr[index]);
     return partition(arr, low, index);
     
 }
 
 
-
-/* This function takes last element as pivot, places
-   the pivot element at its correct position in sorted
-    array, and places all smaller (smaller than pivot)
-   to left of pivot and all greater elements to right
-   of pivot */
 int partition (int arr[], int low, int high){
-    int pivot = arr[high];    // pivot
-    int i = (low - 1);  // Index of smaller element
+    int pivot = arr[high];    
+    int i = (low - 1); 
  
-    for (int j = low; j <= high- 1; j++){
-        // If current element is smaller than or
-        // equal to pivot
+    for (register int j = low; j <= high- 1; j++){
         if (arr[j] <= pivot){
-            i++;    // increment index of smaller element
+            i++; 
             swap(&arr[i], &arr[j]);
         }
     }
@@ -67,16 +56,9 @@ int partition (int arr[], int low, int high){
 
 int * randomized_quicksort(int arr[], int low, int high){
     if (low < high){
-        /* partition_index is partitioning index, arr[p] is now
-           at right place */
-    
-        //medianOfThree(arr, low, high);
-        
+                
         int partition_index = randomized_partition(arr, low, high);
- 
-        // Separately sort elements before
-        // partition and after partition
-        
+
         randomized_quicksort(arr, low, partition_index - 1);    
         randomized_quicksort(arr, partition_index + 1, high);
     }
@@ -86,15 +68,10 @@ int * randomized_quicksort(int arr[], int low, int high){
 
 int * medianQuickSort(int arr[], int low, int high){
     if (low < high){
-        /* partition_index is partitioning index, arr[p] is now
-           at right place */
     
-        medianOfThree(arr, low, high);
-        
+        medianOfThree(arr, low, high);        
         int partition_index = partition(arr, low, high);
- 
-        // Separately sort elements before
-        // partition and after partition
+        
         quickSort(arr, low, partition_index - 1);    
         quickSort(arr, partition_index + 1, high);
     }
@@ -102,12 +79,31 @@ int * medianQuickSort(int arr[], int low, int high){
 }
 
 int * quickSort(int arr[], int low, int high){
-    if(low < high){
+    while(low < high){
 
         int partition_index = partition(arr, low, high);
- 
-        quickSort(arr, low, partition_index - 1);    
-        quickSort(arr, partition_index + 1, high);
+        
+        if (partition_index - low < high -partition_index){
+            quickSort(arr, low, partition_index - 1);        
+            low = partition_index +1;
+        }else{
+            quickSort(arr, partition_index + 1, high);    
+            high = partition_index-1;
+        }
+    
     }
     return arr;
+}
+
+
+int * recursiveQuickSort(int arr[], int low, int high){
+    if (low < high){
+    
+        int partition_index = partition(arr, low, high);
+        
+        quickSort(arr, low, partition_index - 1);    
+        quickSort(arr, partition_index + 1, high);
+        return arr;
+    }
+    return NULL;
 }

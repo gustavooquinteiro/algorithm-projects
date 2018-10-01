@@ -1,4 +1,4 @@
 # algorithm-projects
 Implementações de técnicas de projeto eficiente de algoritmos
 
-1. [Divide and Conquer Algorithms](../master/divide-and-conquer/README.md)
+1. [Sorting Divide and Conquer Algorithms comparative](../master/divide-and-conquer/)
