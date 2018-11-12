@@ -7,7 +7,7 @@ void swap(int* a, int* b){
 }
 
 void medianOfThree(int * arr, int low, int high){
-    int half = (high - low)/2;
+    int half = (high - low) /2;
 
     int begin = arr[low];
     int middle = arr[half];
@@ -34,7 +34,7 @@ void medianOfThree(int * arr, int low, int high){
 int randomized_partition (int arr[], int low, int high){
     int index = rand() % high;
     swap(&arr[high], &arr[index]);
-    return partition(arr, low, index);
+    return partition(arr, low, high);
     
 }
 
@@ -72,38 +72,34 @@ int * medianQuickSort(int arr[], int low, int high){
         medianOfThree(arr, low, high);        
         int partition_index = partition(arr, low, high);
         
-        quickSort(arr, low, partition_index - 1);    
-        quickSort(arr, partition_index + 1, high);
+        medianQuickSort(arr, low, partition_index - 1);    
+        medianQuickSort(arr, partition_index + 1, high);
     }
     return arr;
 }
 
-int * quickSort(int arr[], int low, int high){
-    while(low < high){
-
+int * quickSortHigh(int arr[], int low, int high){
+   if (low < high){
+    
         int partition_index = partition(arr, low, high);
         
-        if (partition_index - low < high -partition_index){
-            quickSort(arr, low, partition_index - 1);        
-            low = partition_index +1;
-        }else{
-            quickSort(arr, partition_index + 1, high);    
-            high = partition_index-1;
-        }
-    
+        quickSortHigh(arr, low, partition_index - 1);    
+        quickSortHigh(arr, partition_index + 1, high);
+        
     }
     return arr;
 }
 
 
-int * recursiveQuickSort(int arr[], int low, int high){
-    if (low < high){
-    
+int * quickSortLow(int arr[], int low, int high){
+   if (low < high){
+       
+        swap(&arr[low], &arr[high]);
         int partition_index = partition(arr, low, high);
         
-        quickSort(arr, low, partition_index - 1);    
-        quickSort(arr, partition_index + 1, high);
-        return arr;
+        quickSortLow(arr, low, partition_index - 1);    
+        quickSortLow(arr, partition_index + 1, high);
+        
     }
-    return NULL;
+    return arr;
 }

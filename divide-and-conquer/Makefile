@@ -15,7 +15,7 @@ H_SOURCE = $(wildcard ./lib/*.h)
 OBJ = $(subst .c,.o,$(subst src,bin,$(C_SOURCE)))
 
 # Compilador utilizado
-CC = gcc
+CC = g++
 
 # Flags utilizadas na compilação
 CC_FLAGS = -c \

@@ -5,10 +5,10 @@
 #include <time.h>
 
 
-int * quickSort(int * arr, int low, int high); 
+int * quickSortHigh(int * arr, int low, int high); 
+int * quickSortLow(int arr[], int low, int high);
 int * medianQuickSort(int* arr, int low, int high);
 int * randomized_quicksort(int * arr, int low, int high);
-int * recursiveQuickSort(int arr[], int low, int high);
 
 int randomized_partition (int * arr, int low, int high);
 int partition (int * arr, int low, int high);
